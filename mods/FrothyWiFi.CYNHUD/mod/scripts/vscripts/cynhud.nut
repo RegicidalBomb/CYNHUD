@@ -7,6 +7,18 @@ void function CynHud_Init() {
 
 var hudMessage = null
 string mapName = ""
+string convarSetting = GetConVarString("ch_hud_message")
+
+void function CynHud_ConfigureRui(rui hudMessageRui) {
+  	RuiSetInt(hudMessageRui, "maxLines", 1)
+  	RuiSetInt(hudMessageRui, "lineNum", 1)
+  	RuiSetFloat2(hudMessageRui, "msgPos", <0.825, 0.92, 0.0>)
+  	RuiSetString(hudMessageRui, "msgText", convarSetting)
+  	RuiSetFloat(hudMessageRui, "msgFontSize", 25.0)
+  	RuiSetFloat(hudMessageRui, "msgAlpha", 0.5)
+  	RuiSetFloat(hudMessageRui, "thicken", 0.0)
+ 	RuiSetFloat3(hudMessageRui, "msgColor", <1.0, 1.0, 1.0>)	
+}
 
 void function CynHud_DoMessage() {
 	WaitFrame()
@@ -14,17 +26,14 @@ void function CynHud_DoMessage() {
 	mapName = GetMapName()
   	hudMessage = RuiCreate($"ui/cockpit_console_text_top_left.rpak", clGlobal.topoCockpitHudPermanent, RUI_DRAW_COCKPIT, 0)
 
-  	RuiSetInt(hudMessage, "maxLines", 1)
-  	RuiSetInt(hudMessage, "lineNum", 1)
-  	RuiSetFloat2(hudMessage, "msgPos", <0.825, 0.92, 0.0>)
-  	RuiSetString(hudMessage, "msgText", GetConVarString("ch_hud_message"))
-  	RuiSetFloat(hudMessage, "msgFontSize", 25.0)
-  	RuiSetFloat(hudMessage, "msgAlpha", 0.5)
-  	RuiSetFloat(hudMessage, "thicken", 0.0)
- 	RuiSetFloat3(hudMessage, "msgColor", <1.0, 1.0, 1.0>)
+	CynHud_ConfigureRui(hudMessage)
 	
 	while (mapName == GetMapName()) {
 		WaitFrame()
+		if (GetConVarString("ch_hud_message") != convarSetting) {
+			RuiDestroy(hudMessage)
+			CynHud_DoMessage()
+		}
 	}
 	RuiDestroy(hudMessage)
 }
