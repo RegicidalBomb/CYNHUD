@@ -1,0 +1,29 @@
+{
+	"Name": "FrothyWiFi.CYNHUD",
+	"Description": "Adds an easily customizable message to your HUD, with the default message as a Cyn reference, some code recycled from the S2TF3HudText mod by S2ymi",
+	"LoadPriority": 2,
+	"RequiredOnClient": false,
+	"Version": "1.0.0",
+	"ConVars": [
+		{
+			"Name": "ch_hud_message",
+			"DefaultValue": "get snuck-up on"
+		}
+	],
+	"Scripts": [
+		{
+			"Path": "cynhud.nut",
+			"RunOn": "CLIENT",
+			"ClientCallback": {
+				"After": "CynHud_Init"
+			}
+		},
+		{
+			"Path": "ui/ms_cynhud.nut",
+			"RunOn": "UI",
+			"UICallback": {
+				"Before": "CynHud_AddModSettings"
+			}
+		}
+	]
+}
