@@ -8,6 +8,10 @@
 		{
 			"Name": "ch_hud_message",
 			"DefaultValue": "get snuck-up on"
+		},
+		{
+			"Name": "ch_hud_message_pos",
+			"DefaultValue": "Bottom-right"
 		}
 	],
 	"Scripts": [
