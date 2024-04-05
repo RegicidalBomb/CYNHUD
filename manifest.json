@@ -2,5 +2,6 @@
     "name": "CYNHUD",
     "version_number": "1.0.0",
     "website_url": "https://github.com/frothy-wifi/CYNHUD",
-    "description": "Adds an easily customizable message to your HUD, with the default message as a Cyn reference."
+    "description": "Adds an easily customizable message to your HUD, with the default message as a Cyn reference.",
+    "dependencies": []
 }
