@@ -1,6 +1,6 @@
 {
 	"Name": "FrothyWiFi.CYNHUD",
-	"Description": "Adds an easily customizable (through Mod Settings) message to your HUD, with the default message as a Cyn reference.",
+	"Description": "Adds an easily customizable (through Mod Settings) message to your HUD. The default message is a Cyn reference.",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
 	"Version": "1.1.0",
