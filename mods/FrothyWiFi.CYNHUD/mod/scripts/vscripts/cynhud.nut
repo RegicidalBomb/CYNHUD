@@ -1,18 +1,30 @@
 global function CynHud_Init;
 
 #if CLIENT
-void function CynHud_WriteChatMessage(string message) {
-	Chat_GameWriteLine("\x1b[113mCYNHUD Control:\x1b[0m " + message);
-}
-
-void function CynHud_Init() {
-	thread CynHud_DoMessage();
-}
-
 var rui = null;
 string mapName = "";
 string message = "";
 string messagePos = "";
+bool shouldReload = false;
+bool hasShownWelcomeTextAlready = false;
+
+ClClient_MessageStruct function CynHud_CommandFilter(ClClient_MessageStruct message) {
+	if (message.message == "$ch.help") {
+		message.shouldBlock = true;
+		Chat_GameWriteLine("\x1b[33m--== CYNHUD commands ==--\x1b[0m");
+		Chat_GameWriteLine("All CYNHUD commands \x1b[112mmust\x1b[0m be prefaced with \x1b[33m\"$ch.\"\x1b[0m.");
+		Chat_GameWriteLine("\x1b[33m$ch.help\x1b[0m - Show available commands.");
+		Chat_GameWriteLine("\x1b[33m$ch.reload\x1b[0m - Reload the HUD message manually.")
+		Chat_GameWriteLine("\x1b[33m$ch.uid\x1b[0m - Show your user ID. CYNHUD also uses this to greet you.");
+	} else if (message.message == "$ch.reload") {
+		message.shouldBlock = true;
+		shouldReload = true;
+	} else if (message.message == "$ch.uid") {
+		message.shouldBlock = true;
+		CynHud_WriteChatMessage("You are Pilot \x1b[111m" + NSGetLocalPlayerUID() + "\x1b[0m.");
+	}
+	return message;
+}
 
 void function CynHud_ConfigureRui() {
   	RuiSetInt(rui, "maxLines", 1);
@@ -47,17 +59,37 @@ void function CynHud_DoMessage() {
 	
 	while (mapName == GetMapName()) {
 		WaitFrame();
+		if (!hasShownWelcomeTextAlready && mapName != "mp_lobby") {
+			CynHud_WriteChatMessage("Welcome back, \x1b[111m" + NSGetLocalPlayerUID() + "\x1b[0m. Run $ch.help for a list of commands.");
+			hasShownWelcomeTextAlready = true;
+		}
+		if (shouldReload) {
+			shouldReload = false;
+			RuiDestroy(rui);
+			CynHud_WriteChatMessage("Manual reload request recieved; reloading HUD message.");
+			CynHud_DoMessage();
+		}
 		if (GetConVarString("ch_hud_message") != message) {
 			RuiDestroy(rui);
-			CynHud_WriteChatMessage("Reloading HUD message.");
+			CynHud_WriteChatMessage("Message changed; reloading HUD message.");
 			CynHud_DoMessage();
 		}
 		if (GetConVarString("ch_hud_message_pos") != messagePos) {
 			RuiDestroy(rui);
-			CynHud_WriteChatMessage("Reloading HUD message.");
+			CynHud_WriteChatMessage("Message position changed; reloading HUD message.");
 			CynHud_DoMessage();
 		}
 	}
 	RuiDestroy(rui);
+	hasShownWelcomeTextAlready = false;
+}
+
+void function CynHud_WriteChatMessage(string message) {
+	Chat_GameWriteLine("\x1b[33mCYNHUD:\x1b[0m " + message);
+}
+
+void function CynHud_Init() {
+	AddCallback_OnReceivedSayTextMessage(CynHud_CommandFilter);
+	thread CynHud_DoMessage();
 }
 #endif
