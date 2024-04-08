@@ -2,11 +2,10 @@ global function CynHud_Init;
 
 #if CLIENT
 void function CynHud_WriteChatMessage(string message) {
-	Chat_GameWriteLine("\x1b[113mCYNHUD OS:\x1b[0m " + message);
+	Chat_GameWriteLine("\x1b[113mCYNHUD Control:\x1b[0m " + message);
 }
 
 void function CynHud_Init() {
-	CynHud_WriteChatMessage("Good luck. :D");
 	thread CynHud_DoMessage();
 }
 
@@ -50,12 +49,12 @@ void function CynHud_DoMessage() {
 		WaitFrame();
 		if (GetConVarString("ch_hud_message") != message) {
 			RuiDestroy(rui);
-			CynHud_WriteChatMessage("Updating HUD message.");
+			CynHud_WriteChatMessage("Reloading HUD message.");
 			CynHud_DoMessage();
 		}
 		if (GetConVarString("ch_hud_message_pos") != messagePos) {
 			RuiDestroy(rui);
-			CynHud_WriteChatMessage("Updating HUD message.");
+			CynHud_WriteChatMessage("Reloading HUD message.");
 			CynHud_DoMessage();
 		}
 	}
