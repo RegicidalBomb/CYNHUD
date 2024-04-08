@@ -1,4 +1,4 @@
 FrothyWiFi-CYNHUD-*.zip
-CHBuild\bin\*
-CHBuild\obj\*
-CHBuild\Properties\PublishProfiles\FolderProfile.pubxml.user
+CHBuild/bin
+CHBuild/obj
+CHBuild/Properties/PublishProfiles/FolderProfile.pubxml.user
