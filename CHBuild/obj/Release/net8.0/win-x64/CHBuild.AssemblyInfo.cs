@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CHBuild")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96e2ffb9df7a3c3665da6c09894bc7cad794502a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4f152370b19fafc8ead3e763afa0544cd8f6f56")]
 [assembly: System.Reflection.AssemblyProductAttribute("CHBuild")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CHBuild")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
