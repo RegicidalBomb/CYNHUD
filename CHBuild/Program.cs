@@ -11,7 +11,13 @@ namespace CHBuild
         public static void Build(string version, bool isThunderstoreBuild=false)
         {
             string newFolderName = $"FrothyWiFi-CYNHUD-{version}";
-            Process.Start("powershell.exe", isThunderstoreBuild ? $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Compress-Archive -Path {newFolderName}\* -DestinationPath {newFolderName}.zip; Remove-Item -Path {newFolderName} -Recurse" : $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse");
+            Process process = new();
+            process.StartInfo.FileName = "powershell.exe";
+            process.StartInfo.Arguments = isThunderstoreBuild ? $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse; Compress-Archive -Path {newFolderName}\* -DestinationPath {newFolderName}.zip; Remove-Item -Path {newFolderName} -Force -Recurse" : $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse";
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.UseShellExecute = false;
+            process.Start();
+            process.WaitForExit();
             Console.WriteLine("Done! :D");
             Console.WriteLine("---===---");
         }

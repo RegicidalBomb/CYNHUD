@@ -3,7 +3,7 @@
 	"Description": "Adds an easily customizable (through Mod Settings) message to your HUD. The default message is a Cyn reference.",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
-	"Version": "1.2.0",
+	"Version": "1.2.1",
 	"ConVars": [
 		{
 			"Name": "ch_hud_message",

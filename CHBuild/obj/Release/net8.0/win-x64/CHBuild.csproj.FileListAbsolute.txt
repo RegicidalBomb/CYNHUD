@@ -2,7 +2,6 @@ C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\CHBuil
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\CHBuild.deps.json
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\CHBuild.runtimeconfig.json
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\CHBuild.dll
-C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\CHBuild.pdb
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\Microsoft.CSharp.dll
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\Microsoft.VisualBasic.Core.dll
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\win-x64\Microsoft.VisualBasic.dll
@@ -193,6 +192,5 @@ C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\CHBuil
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\CHBuild.csproj.Up2Date
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\CHBuild.dll
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\refint\CHBuild.dll
-C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\CHBuild.pdb
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\CHBuild.genruntimeconfig.cache
 C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Release\net8.0\win-x64\ref\CHBuild.dll

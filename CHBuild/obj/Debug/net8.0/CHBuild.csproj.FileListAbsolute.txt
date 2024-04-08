@@ -1,0 +1,5 @@
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Debug\net8.0\CHBuild.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Debug\net8.0\CHBuild.AssemblyInfoInputs.cache
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Debug\net8.0\CHBuild.AssemblyInfo.cs
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Debug\net8.0\CHBuild.csproj.CoreCompileInputs.cache
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\obj\Debug\net8.0\CHBuild.sourcelink.json
