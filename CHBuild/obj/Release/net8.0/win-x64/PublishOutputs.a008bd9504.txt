@@ -1,0 +1,2 @@
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\publish\win-x64\CHBuild.pdb
+C:\Users\froth\OneDrive\Desktop\CYNHUD\CHBuild\bin\Release\net8.0\publish\win-x64\CHBuild.exe
