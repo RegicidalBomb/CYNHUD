@@ -5,7 +5,7 @@ var rui = null;
 string mapName = "";
 string message = "";
 string messagePos = "";
-string version = "1.4.0";
+string version = "1.4.2";
 bool reloadRequest = false;
 bool hasShownWelcomeTextAlready = false;
 
@@ -14,7 +14,7 @@ void function CynHud_CheckForUpdates() {
 		string webVersion = response.body;
 		print(response.body);
 		if (webVersion[0] > version[0]) {
-			CynHud_WriteChatMessage("New update available: \x1b[113mv" + response.body + "\x1b[0m. Get it from \x1b[111mThunderstore\x1b[0m or \x1b[111mGitHub\x1b[0m.");
+			CynHud_WriteChatMessage("New overhaul update available: \x1b[113mv" + response.body + "\x1b[0m. Get it from \x1b[111mThunderstore\x1b[0m or \x1b[111mGitHub\x1b[0m.");
 		} else if (webVersion[2] > version[2]) {
 			CynHud_WriteChatMessage("New update available: \x1b[113mv" + response.body + "\x1b[0m. Get it from \x1b[111mThunderstore\x1b[0m or \x1b[111mGitHub\x1b[0m.");
 		} else if (webVersion[4] > version[4]) {
@@ -26,7 +26,7 @@ void function CynHud_CheckForUpdates() {
 	void functionref(HttpRequestFailure) onFailure = void function(HttpRequestFailure failure) {
 		CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m code \x1b[113" + failure.errorCode.tostring() + ": " + failure.errorMessage + "\x1b[0m.");
 	}
-	if (NSHttpGet("https://frothywifi.cc/r2ns-ckupdate/cynhud.txt", {}, onSuccess, onFailure)) {
+	if (NSHttpGet("https://frothywifi.cc/r2ns-ckupdate/cynhud", {}, onSuccess, onFailure)) {
 		CynHud_WriteChatMessage("Checking for updates.");
 	} else {
 		CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m Couldn't start the HTTP request. Do you have HTTP requests disabled in your launch options?");

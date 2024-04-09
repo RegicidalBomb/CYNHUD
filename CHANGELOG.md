@@ -1,4 +1,6 @@
-# v1.4.1 *[Patch]*
+# v1.4.2 *[Patch]*
+- Fix local version number, making the update system think there is an update
+## v1.4.1 *[Patch]*
 - Fix settings not saving
 - Update `help` command
 - Add manual update check command - `ckupdate`

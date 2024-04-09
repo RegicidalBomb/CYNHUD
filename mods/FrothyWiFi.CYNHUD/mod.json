@@ -3,7 +3,7 @@
 	"Description": "Adds an easily customizable (through Mod Settings) message to your HUD and useful game commands.",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
-	"Version": "1.4.1",
+	"Version": "1.4.2",
 	"ConVars": [
 		{
 			"Name": "ch_hud_message",
