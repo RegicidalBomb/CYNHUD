@@ -13,7 +13,7 @@ namespace CHBuild
             string newFolderName = $"FrothyWiFi-CYNHUD-{version}";
             Process process = new();
             process.StartInfo.FileName = "powershell.exe";
-            process.StartInfo.Arguments = isThunderstoreBuild ? $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse; Compress-Archive -Path {newFolderName}\* -DestinationPath {newFolderName}.zip; Remove-Item -Path {newFolderName} -Force -Recurse" : $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse";
+            process.StartInfo.Arguments = isThunderstoreBuild ? $@"Copy-Item -Path ""FrothyWiFi-CYNHUD-0.0.0"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse; Compress-Archive -Path {newFolderName}\* -DestinationPath {newFolderName}.zip; Remove-Item -Path {newFolderName} -Force -Recurse" : $@"Copy-Item -Path ""FrothyWiFi-CYNHUD-0.0.0"" -Destination ""{newFolderName}"" -Recurse";
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.UseShellExecute = false;
             process.Start();
@@ -25,7 +25,7 @@ namespace CHBuild
         public static void UserManual()
         {
             Console.WriteLine($"Usage: {Process.GetCurrentProcess().ProcessName}.exe");
-            Console.WriteLine("TUI (program environment) Usage:\n\tEnsure this binary/exe is in the same parent directory/folder as the cloned repo of CYNHUD (folder should be named CYNHUD).\n\tChoose either option R or T.");
+            Console.WriteLine("TUI (program environment) Usage:\n\tEnsure this binary/exe is in the same parent directory/folder as the cloned repo of CYNHUD (folder should be named FrothyWiFi-CYNHUD-0.0.0).\n\tChoose either option R or T.");
             Console.WriteLine("---===---");
         }
 
