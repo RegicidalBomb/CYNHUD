@@ -13,7 +13,7 @@ namespace CHBuild
             string newFolderName = $"FrothyWiFi-CYNHUD-{version}";
             Process process = new();
             process.StartInfo.FileName = "powershell.exe";
-            process.StartInfo.Arguments = isThunderstoreBuild ? $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse; Compress-Archive -Path {newFolderName}\* -DestinationPath {newFolderName}.zip; Remove-Item -Path {newFolderName} -Force -Recurse" : $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse";
+            process.StartInfo.Arguments = isThunderstoreBuild ? $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse; Remove-Item -Path ""{newFolderName}\.gitignore"" -Force; Remove-Item -Path ""{newFolderName}\CHBuild"" -Force -Recurse; Remove-Item -Path {newFolderName}\.git -Force -Recurse; Compress-Archive -Path {newFolderName}\* -DestinationPath {newFolderName}.zip; Remove-Item -Path {newFolderName} -Force -Recurse" : $@"Copy-Item -Path ""CYNHUD"" -Destination ""{newFolderName}"" -Recurse";
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.UseShellExecute = false;
             process.Start();

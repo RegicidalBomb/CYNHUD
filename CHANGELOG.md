@@ -1,5 +1,14 @@
-# <p align=center>Changelog</p>
-# v1.2.1
+# v1.4.1 *[Patch]*
+- Fix settings not saving
+- Update `help` command
+- Add manual update check command - `ckupdate`
+- Refactor some code
+## v1.4
+- Added automatic update checking!
+## v1.3
+- Added control messages to confirm that your changes have been noticed by the mod
+- Commandds
+## v1.2.1
 - Added a new logo
 ## v1.2
 - Added message on HUD message reload

@@ -3,17 +3,19 @@
 	"Description": "Adds an easily customizable (through Mod Settings) message to your HUD and useful game commands.",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
-	"Version": "1.3.0",
+	"Version": "1.4.1",
 	"ConVars": [
 		{
 			"Name": "ch_hud_message",
 			"DefaultValue": "get snuck-up on",
-			"HelpString": "The message CYNHUD will display on your HUD."
+			"HelpString": "The message CYNHUD will display on your HUD.",
+			"Flags": 16777216
 		},
 		{
 			"Name": "ch_hud_message_pos",
 			"DefaultValue": "Middle",
-			"HelpString": "The position of the message CYNHUD will display on your HUD. (Bottom, Middle, Top)"
+			"HelpString": "The position of the message CYNHUD will display on your HUD. (Bottom, Middle, Top)",
+			"Flags": 16777216
 		}
 	],
 	"Scripts": [

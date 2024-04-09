@@ -1,6 +1,6 @@
 {
     "name": "CYNHUD",
-    "version_number": "1.3.0",
+    "version_number": "1.4.1",
     "website_url": "https://github.com/frothy-wifi/CYNHUD",
     "description": "Adds an easily customizable (through Mod Settings) message to your HUD and useful game commands.",
     "dependencies": []
