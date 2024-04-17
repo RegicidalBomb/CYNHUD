@@ -47,20 +47,25 @@ void function CynHud_CheckForUpdates() {
 		}
 		FlagWait("CynHudUpdateCheckP1Success");
 
-		onSuccess = void function(HttpRequestResponse response) {
-			CynHud_WriteChatMessage("\x1b[113mChanges/fixes:\x1b[0m " + response.body);
+		if (Flag("CynHudUpdateCheckP1Success")) {
+			onSuccess = void function(HttpRequestResponse response) {
+				CynHud_WriteChatMessage("\x1b[113mChanges/fixes:\x1b[0m " + response.body);
+				FlagSet("CynHudUpdateCheckP2Done");
+			}
+
+			onFailure = void function(HttpRequestFailure failure) {
+				CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: " + failure.errorMessage);
+				FlagSet("CynHudUpdateCheckP2Done");
+			}
+
+			if (!(NSHttpGet("https://cynhud.api.frothywifi.cc/changes", {}, onSuccess, onFailure))) {
+				CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: Couldn't launch the HTTP request.");
+				FlagSet("CynHudUpdateCheckP2Done");
+			}			
+		} else {
 			FlagSet("CynHudUpdateCheckP2Done");
 		}
 
-		onFailure = void function(HttpRequestFailure failure) {
-			CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: " + failure.errorMessage);
-			FlagSet("CynHudUpdateCheckP2Done");
-		}
-
-		if (!(NSHttpGet("https://cynhud.api.frothywifi.cc/changes", {}, onSuccess, onFailure))) {
-			CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: Couldn't launch the HTTP request.");
-			FlagSet("CynHudUpdateCheckP2Done");
-		}
 
 		FlagWait("CynHudUpdateCheckP2Done");
 
