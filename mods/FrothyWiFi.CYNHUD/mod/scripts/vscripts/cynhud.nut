@@ -5,13 +5,14 @@ var rui = null;
 string mapName = "";
 string message = "";
 string messagePos = "";
-string version = "1.4.3";
+string version = "1.4.4";
 bool reloadRequest = false;
 bool shouldShowWelcomeText = true;
 
 // Threading required (use `thread`)
 void function CynHud_CheckForUpdates() {
 	Assert(IsNewThread(), "CynHud_CheckForUpdates method requires threading");
+	FlagInit("CynHudFetchUpdateChanges");
 	FlagInit("CynHudUpdateCheckP1Success");
 	FlagInit("CynHudUpdateCheckP2Done");
 	FlagInit("CynHudUpdateCheckP1Failed");
@@ -20,10 +21,13 @@ void function CynHud_CheckForUpdates() {
 			string webVersion = response.body;
 			if (version[0] < webVersion[0]) {
 				CynHud_WriteChatMessage("\x1b[113mNew major update!\x1b[0m Update using your \x1b[111mmod manager\x1b[0m, \x1b[111mThunderstore\x1b[0m, or \x1b[111mGitHub\x1b[0m. (v" + webVersion + ")");
+				FlagSet("CynHudFetchUpdateChanges");
 			} else if (version[2] < webVersion[2]) {
 				CynHud_WriteChatMessage("\x1b[113mNew update:\x1b[0m Update using your \x1b[111mmod manager\x1b[0m, \x1b[111mThunderstore\x1b[0m, or \x1b[111mGitHub\x1b[0m. (v" + webVersion + ")");
+				FlagSet("CynHudFetchUpdateChanges");
 			} else if (version[4] < webVersion[4]) {
 				CynHud_WriteChatMessage("\x1b[113mNew patch:\x1b[0m Update using your \x1b[111mmod manager\x1b[0m, \x1b[111mThunderstore\x1b[0m, or \x1b[111mGitHub\x1b[0m. (v" + webVersion + ")");
+				FlagSet("CynHudFetchUpdateChanges");
 			}
 			FlagSet("CynHudUpdateCheckP1Success");
 		}
@@ -47,7 +51,7 @@ void function CynHud_CheckForUpdates() {
 		}
 		FlagWait("CynHudUpdateCheckP1Success");
 
-		if (Flag("CynHudUpdateCheckP1Success")) {
+		if (Flag("CynHudUpdateCheckP1Success") && Flag("CynHudFetchUpdateChanges")) {
 			onSuccess = void function(HttpRequestResponse response) {
 				CynHud_WriteChatMessage("\x1b[113mChanges/fixes:\x1b[0m " + response.body);
 				FlagSet("CynHudUpdateCheckP2Done");

@@ -1,4 +1,6 @@
-# v1.4.3  *[Patch]*
+# v1.4.4 *[Patch]*
+- Fix fetching and showing latest update changes even on latest version
+## v1.4.3 *[Patch]*
 - Use the new [CYNHUD Update Agent API](https://cynhud.api.frothywifi.cc)
 - Aesthetical changes (basically just update style)
 ## v1.4.2 *[Patch]*
@@ -12,7 +14,7 @@
 - Added automatic update checking!
 ## v1.3
 - Added control messages to confirm that your changes have been noticed by the mod
-- Commandds
+- Commands
 ## v1.2.1
 - Added a new logo
 ## v1.2
