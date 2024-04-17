@@ -1,5 +1,7 @@
 # CYNHUD
 > A Titanfall 2 + Northstar mod that adds an easily customizable (through Mod Settings) message to your HUD and useful game commands.
+
+Yes, the name is a Murder Drones reference.
 ## Why?
 > "Science isn't about WHY, it's about WHY NOT." - Cave Johnson  
 

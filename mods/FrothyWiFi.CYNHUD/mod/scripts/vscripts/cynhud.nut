@@ -5,7 +5,7 @@ var rui = null;
 string mapName = "";
 string message = "";
 string messagePos = "";
-string version = "1.4.2";
+string version = "1.4.3";
 bool reloadRequest = false;
 bool shouldShowWelcomeText = true;
 

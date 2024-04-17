@@ -1,4 +1,7 @@
-# v1.4.2 *[Patch]*
+# v1.4.3  *[Patch]*
+- Use the new [CYNHUD Update Agent API](https://cynhud.api.frothywifi.cc)
+- Aesthetical changes (basically just update style)
+## v1.4.2 *[Patch]*
 - Fix local version number, making the update system think there is an update
 ## v1.4.1 *[Patch]*
 - Fix settings not saving
