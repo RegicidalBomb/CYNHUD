@@ -5,7 +5,7 @@ namespace CHBuild
 {
     public static class CHBuild
     {
-        public static string version = "1.0.0";
+        public static string version = "1.0.1";
         private static bool mainRunForFirstTime = false;
         
         public static void Build(string version, bool isThunderstoreBuild=false)

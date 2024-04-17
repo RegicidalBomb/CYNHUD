@@ -7,29 +7,67 @@ string message = "";
 string messagePos = "";
 string version = "1.4.2";
 bool reloadRequest = false;
-bool hasShownWelcomeTextAlready = false;
+bool shouldShowWelcomeText = true;
 
+// Threading required (use `thread`)
 void function CynHud_CheckForUpdates() {
-	void functionref(HttpRequestResponse) onSuccess = void function(HttpRequestResponse response) {
-		string webVersion = response.body;
-		print(response.body);
-		if (webVersion[0] > version[0]) {
-			CynHud_WriteChatMessage("New overhaul update available: \x1b[113mv" + response.body + "\x1b[0m. Get it from \x1b[111mThunderstore\x1b[0m or \x1b[111mGitHub\x1b[0m.");
-		} else if (webVersion[2] > version[2]) {
-			CynHud_WriteChatMessage("New update available: \x1b[113mv" + response.body + "\x1b[0m. Get it from \x1b[111mThunderstore\x1b[0m or \x1b[111mGitHub\x1b[0m.");
-		} else if (webVersion[4] > version[4]) {
-			CynHud_WriteChatMessage("New patch available: \x1b[113mv" + response.body + "\x1b[0m. Get it from \x1b[111mThunderstore\x1b[0m or \x1b[111mGitHub\x1b[0m.");
-		} else {
-			CynHud_WriteChatMessage("No updates found. Have a good day!")
+	Assert(IsNewThread(), "CynHud_CheckForUpdates method requires threading");
+	FlagInit("CynHudUpdateCheckP1Success");
+	FlagInit("CynHudUpdateCheckP2Done");
+	FlagInit("CynHudUpdateCheckP1Failed");
+	if (GetMapName() != "mp_lobby") {
+		void functionref(HttpRequestResponse) onSuccess = void function(HttpRequestResponse response) {
+			string webVersion = response.body;
+			if (version[0] < webVersion[0]) {
+				CynHud_WriteChatMessage("\x1b[113mNew major update!\x1b[0m Update using your \x1b[111mmod manager\x1b[0m, \x1b[111mThunderstore\x1b[0m, or \x1b[111mGitHub\x1b[0m. (v" + webVersion + ")");
+			} else if (version[2] < webVersion[2]) {
+				CynHud_WriteChatMessage("\x1b[113mNew update:\x1b[0m Update using your \x1b[111mmod manager\x1b[0m, \x1b[111mThunderstore\x1b[0m, or \x1b[111mGitHub\x1b[0m. (v" + webVersion + ")");
+			} else if (version[4] < webVersion[4]) {
+				CynHud_WriteChatMessage("\x1b[113mNew patch:\x1b[0m Update using your \x1b[111mmod manager\x1b[0m, \x1b[111mThunderstore\x1b[0m, or \x1b[111mGitHub\x1b[0m. (v" + webVersion + ")");
+			}
+			FlagSet("CynHudUpdateCheckP1Success");
 		}
-	}
-	void functionref(HttpRequestFailure) onFailure = void function(HttpRequestFailure failure) {
-		CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m code \x1b[113" + failure.errorCode.tostring() + ": " + failure.errorMessage + "\x1b[0m.");
-	}
-	if (NSHttpGet("https://frothywifi.cc/r2ns-ckupdate/cynhud", {}, onSuccess, onFailure)) {
-		CynHud_WriteChatMessage("Checking for updates.");
-	} else {
-		CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m Couldn't start the HTTP request. Do you have HTTP requests disabled in your launch options?");
+
+		void functionref(HttpRequestFailure) onFailure = void function(HttpRequestFailure failure) {
+			CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m " + failure.errorMessage);
+			FlagSet("CynHudUpdateCheckP1Failed");
+		}
+		
+		if (!(NSHttpGet("https://cynhud.api.frothywifi.cc/currentver", {}, onSuccess, onFailure))) {
+			CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m Couldn't launch the HTTP request. Are they disabled in your Northstar launch options?");
+			FlagSet("CynHudUpdateCheckP1Failed");
+		}
+
+		if (Flag("CynHudUpdateCheckP1Failed")) {
+			if (shouldShowWelcomeText) {
+				CynHud_WriteChatMessage("Welcome back, \x1b[111m" + NSGetLocalPlayerUID() + "\x1b[0m. Run \x1b[33m$ch.help\x1b[0m for a list of commands.");
+				shouldShowWelcomeText = false;
+			}
+			return;
+		}
+		FlagWait("CynHudUpdateCheckP1Success");
+
+		onSuccess = void function(HttpRequestResponse response) {
+			CynHud_WriteChatMessage("\x1b[113mChanges/fixes:\x1b[0m " + response.body);
+			FlagSet("CynHudUpdateCheckP2Done");
+		}
+
+		onFailure = void function(HttpRequestFailure failure) {
+			CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: " + failure.errorMessage);
+			FlagSet("CynHudUpdateCheckP2Done");
+		}
+
+		if (!(NSHttpGet("https://cynhud.api.frothywifi.cc/changes", {}, onSuccess, onFailure))) {
+			CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: Couldn't launch the HTTP request.");
+			FlagSet("CynHudUpdateCheckP2Done");
+		}
+
+		FlagWait("CynHudUpdateCheckP2Done");
+
+		if (shouldShowWelcomeText) {
+			CynHud_WriteChatMessage("Welcome back, \x1b[111m" + NSGetLocalPlayerUID() + "\x1b[0m. Run \x1b[33m$ch.help\x1b[0m for a list of commands.");
+			shouldShowWelcomeText = false;
+		}
 	}
 }
 
@@ -39,9 +77,9 @@ ClClient_MessageStruct function CynHud_CommandFilter(ClClient_MessageStruct mess
 		Chat_GameWriteLine("\x1b[33m--== CYNHUD commands ==--\x1b[0m");
 		Chat_GameWriteLine("All CYNHUD commands \x1b[112mmust\x1b[0m be prefaced with \x1b[33m\"$ch.\"\x1b[0m, for example \x1b[33m$ch.uid\x1b[0m.");
 		Chat_GameWriteLine("\x1b[33mhelp\x1b[0m - Show available commands.");
-		Chat_GameWriteLine("\x1b[33mreload\x1b[0m - Reload the HUD message manually.")
+		Chat_GameWriteLine("\x1b[33mreload\x1b[0m - Manually reload the HUD message.")
 		Chat_GameWriteLine("\x1b[33muid\x1b[0m - Show your user ID. CYNHUD also uses this to greet you.");
-		Chat_GameWriteLine("\x1b[33mckupdate\x1b[0m - Check for CYNHUD updates.");
+		Chat_GameWriteLine("\x1b[33mckupdate\x1b[0m - Manually check for updates.");
 	} else if (message.message == "$ch.reload") {
 		message.shouldBlock = true;
 		reloadRequest = true;
@@ -50,7 +88,7 @@ ClClient_MessageStruct function CynHud_CommandFilter(ClClient_MessageStruct mess
 		CynHud_WriteChatMessage("You are Pilot \x1b[111m" + NSGetLocalPlayerUID() + "\x1b[0m.");
 	} else if (message.message == "$ch.ckupdate") {
 		message.shouldBlock = true;
-		CynHud_CheckForUpdates();
+		thread CynHud_CheckForUpdates();
 	}
 	return message;
 }
@@ -88,11 +126,6 @@ void function CynHud_DoMessage() {
 	
 	while (mapName == GetMapName()) {
 		WaitFrame();
-		if (!hasShownWelcomeTextAlready && mapName != "mp_lobby") {
-			thread CynHud_CheckForUpdates();
-			CynHud_WriteChatMessage("Welcome back, \x1b[111m" + NSGetLocalPlayerUID() + "\x1b[0m. Run \x1b[33m$ch.help\x1b[0m for a list of commands.");
-			hasShownWelcomeTextAlready = true;
-		}
 		if (reloadRequest) {
 			reloadRequest = false;
 			RuiDestroy(rui);
@@ -111,7 +144,7 @@ void function CynHud_DoMessage() {
 		}
 	}
 	RuiDestroy(rui);
-	hasShownWelcomeTextAlready = false;
+	shouldShowWelcomeText = true;
 }
 
 void function CynHud_WriteChatMessage(string message) {
@@ -120,7 +153,7 @@ void function CynHud_WriteChatMessage(string message) {
 
 void function CynHud_Init() {
 	AddCallback_OnReceivedSayTextMessage(CynHud_CommandFilter);
-	CynHud_CheckForUpdates();
+	thread CynHud_CheckForUpdates();
 	thread CynHud_DoMessage();
 }
 #endif
