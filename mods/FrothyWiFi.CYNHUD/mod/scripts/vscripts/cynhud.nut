@@ -5,7 +5,7 @@ var rui = null;
 string mapName = "";
 string message = "";
 string messagePos = "";
-string version = "1.4.4";
+string version = "1.4.5";
 bool reloadRequest = false;
 bool shouldShowWelcomeText = true;
 
@@ -37,7 +37,7 @@ void function CynHud_CheckForUpdates() {
 			FlagSet("CynHudUpdateCheckP1Failed");
 		}
 		
-		if (!(NSHttpGet("https://cynhud.api.frothywifi.cc/currentver", {}, onSuccess, onFailure))) {
+		if (!(NSHttpGet("https://frothywifi.cc/netchimp-cynhud/latestver", {}, onSuccess, onFailure))) {
 			CynHud_WriteChatMessage("\x1b[112mUpdate check failed:\x1b[0m Couldn't launch the HTTP request. Are they disabled in your Northstar launch options?");
 			FlagSet("CynHudUpdateCheckP1Failed");
 		}
@@ -62,7 +62,7 @@ void function CynHud_CheckForUpdates() {
 				FlagSet("CynHudUpdateCheckP2Done");
 			}
 
-			if (!(NSHttpGet("https://cynhud.api.frothywifi.cc/changes", {}, onSuccess, onFailure))) {
+			if (!(NSHttpGet("https://frothywifi.cc/netchimp-cynhud/changes", {}, onSuccess, onFailure))) {
 				CynHud_WriteChatMessage("Can't fetch update changes/fixes right now: Couldn't launch the HTTP request.");
 				FlagSet("CynHudUpdateCheckP2Done");
 			}			

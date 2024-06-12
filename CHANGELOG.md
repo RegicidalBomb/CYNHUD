@@ -1,4 +1,6 @@
-# v1.4.4 *[Patch]*
+# v1.4.5 *[Patch]*
+- Fix update checking
+## v1.4.4 *[Patch]*
 - Fix fetching and showing latest update changes even on latest version
 ## v1.4.3 *[Patch]*
 - Use the new [CYNHUD Update Agent API](https://cynhud.api.frothywifi.cc)
